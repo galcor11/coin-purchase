@@ -413,6 +413,24 @@
         stroke-dashoffset: 0;
       }
     }
+/* כפתור ההורדה במצב התחלתי: מוסתר ולא פעיל */
+#download-btn {
+  display: none; /* מסתיר את הכפתור לחלוטין בהתחלה */
+  background: #d1d5db !important; /* צבע אפור עדין */
+  color: #9ca3af !important; /* טקסט אפור בהיר */
+  cursor: not-allowed !important; /* סימון שהכפתור חסום */
+  box-shadow: none !important;
+}
+
+/* כפתור ההורדה כשהוא הופך לפעיל אחרי המימוש */
+#download-btn.active {
+  display: block; /* מציג את הכפתור */
+  background: linear-gradient(135deg, #4A7B9D 0%, #2C4A60 100%) !important; /* צבע כחול מקצועי שבולט ומפריד אותו מהכפתור הצהוב */
+  color: white !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 15px rgba(44, 74, 96, 0.3) !important;
+}
+  
   </style>
 </head>
 
@@ -454,23 +472,24 @@
 
     <button class="btn-buy" id="download-btn" disabled>צידה לדרך (הורדת PPT)</button>
 
-    <div class="success-overlay" id="successOverlay">
-      <div class="success-checkmark">
-        <svg viewBox="0 0 52 52">
-          <polyline points="14 27 22 35 38 19" />
-        </svg>
-      </div>
-      <h3 class="success-title">הרכישה הושלמה!</h3>
-      <p class="success-subtitle" id="successDesc">הרכישה הושלמה בהצלחה! יתרת המטבעות המעודכנת שלך: 0 מטבעות.</p>
+ <div class="success-overlay" id="successOverlay">
+      <div class="success-checkmark">
+        <svg viewBox="0 0 52 52">
+          <polyline points="14 27 22 35 38 19" />
+        </svg>
+      </div>
+      <h3 class="success-title">הרכישה הושלמה!</h3>
+      <p class="success-subtitle" id="successDesc">הרכישה הושלמה בהצלחה! יתרת המטבעות המעודכנת שלך: 0 מטבעות.</p>
 
-      <button class="btn-buy"
-        style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25);">
-        לסיום היחידה
-      </button>
+            <button class="btn-buy" id="download-btn">צידה לדרך (הורדת PPT)</button>
 
-      <button class="reset-btn" onclick="resetUI(event)">הפעל שוב 🔁</button>
-    </div>
-  </div>
+      <button class="btn-buy"
+        style="margin-top: 10px; background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25);">
+        לסיום היחידה
+      </button>
+
+      <button class="reset-btn" onclick="resetUI(event)">הפעל שוב 🔁</button>
+    </div>
 
   <script>
     let isPurchasing = false;
@@ -525,11 +544,16 @@ const downloadBtn = document.getElementById('download-btn');
       }
 
       setTimeout(() => {
+    
         card.classList.remove('processing');
         card.classList.add('success-active');
         triggerConfettiExplosion();
+        
+        // כאן משנים! מציגים את הכפתור והופכים אותו לפעיל
         localStorage.setItem('coinPurchased', 'true');
-        downloadBtn.disabled = false;
+        downloadBtn.style.display = 'block';
+        downloadBtn.classList.add('active');
+        downloadBtn.disabled = false; // מאפשר לחיצה
       }, delay + 800);
     }
 
@@ -614,6 +638,7 @@ const downloadBtn = document.getElementById('download-btn');
       link.click();
       document.body.removeChild(link);
     });
+    
   </script>
 </body>
 

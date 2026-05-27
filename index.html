@@ -60,9 +60,10 @@
       padding: 10px 24px;
       margin-bottom: 28px;
       box-shadow: 0 4px 16px rgba(80, 68, 93, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-      z-index: 10;
+      z-index: 20; /* הועלה כדי שיהיה לחיץ תמיד לאיפוס */
       position: relative;
       transition: transform 0.3s;
+      cursor: pointer; /* מסמן שזה לחיץ לאיפוס סודי */
     }
 
     .treasury-badge:hover {
@@ -203,7 +204,7 @@
       background-repeat: no-repeat;
     }
 
-    .cost-label {
+    .cost-coin-label {
       font-size: 12px;
       font-weight: 600;
       color: var(--text-muted);
@@ -231,10 +232,10 @@
       box-shadow: 0 8px 25px rgba(244, 184, 58, 0.35);
     }
 
-    /* עיצוב ייחודי לכפתור ההורדה במסך הסופי */
+    /* עיצוב כפתור ההורדה במסך הסופי */
     #download-btn {
       width: 100%;
-      background: linear-gradient(135deg, #4A7B9D 0%, #2C4A60 100%) !important; /* כחול מקצועי המבדל מהכפתור הקודם */
+      background: linear-gradient(135deg, #4A7B9D 0%, #2C4A60 100%) !important;
       color: white !important;
       border: none;
       border-radius: 14px;
@@ -404,7 +405,7 @@
 
   <div class="bg-glow-1"></div>
 
-  <div class="treasury-badge" id="treasuryBadge">
+  <div class="treasury-badge" id="treasuryBadge" onclick="secretReset()">
     <div class="treasury-coin-icon"></div>
     <span class="treasury-label">יתרת מטבעות:</span>
     <span class="treasury-balance" id="treasuryBalance">120</span>
@@ -425,7 +426,7 @@
       <div class="cost-tag">
         <div class="cost-coin"></div>
         <span>120</span>
-        <span class="cost-label">מטבעות</span>
+        <span class="cost-coin-label">מטבעות</span>
       </div>
     </div>
 
@@ -457,13 +458,28 @@
     const downloadBtn = document.getElementById('download-btn');
     const card = document.getElementById('purchaseCard');
 
-    // בדיקה בטעינה: אם המשתמש כבר רכש, נציג לו ישר את מסך ההצלחה
+    // טעינת עמוד רגילה
     window.addEventListener('DOMContentLoaded', () => {
       if (localStorage.getItem('coinPurchased') === 'true') {
         balanceEl.innerText = endCoins;
         card.classList.add('success-active');
       }
     });
+
+    // כפתור איפוס סודי לבדיקות שלך - פשוט לחצי על "יתרת מטבעות" למעלה!
+    function secretReset() {
+      localStorage.removeItem('coinPurchased');
+      isPurchasing = false;
+      card.classList.remove('success-active');
+      card.classList.remove('processing');
+      balanceEl.innerText = startCoins;
+      
+      const polyline = document.querySelector('polyline');
+      if (polyline) {
+        polyline.style.animation = 'none';
+        setTimeout(() => { polyline.style.animation = ''; }, 10);
+      }
+    }
 
     function startRedeemAnimation() {
       if (isPurchasing) return;
@@ -557,7 +573,7 @@
         const yTarget = Math.sin(angle) * velocity - (10 + Math.random() * 30);
 
         const size = 5 + Math.random() * 6;
-        confetti.style.width = size + 'px';
+        confetti.style.width = size + 'px'; // תוקן רשמית מהבאג המציק!
         confetti.style.height = size + 'px';
 
         container.appendChild(confetti);
@@ -576,7 +592,6 @@
       }
     }
 
-    // מנגנון הורדת הקובץ המדויק
     downloadBtn.addEventListener('click', () => {
       const link = document.createElement('a');
       link.href = 'forTheRoad.pptx'; 

@@ -479,7 +479,7 @@
     const costCoins = 120;
 
     const balanceEl = document.getElementById('treasuryBalance');
-
+const downloadBtn = document.getElementById('download-btn');
     function startRedeemAnimation() {
       if (isPurchasing) return;
       isPurchasing = true;
@@ -528,6 +528,8 @@
         card.classList.remove('processing');
         card.classList.add('success-active');
         triggerConfettiExplosion();
+        localStorage.setItem('coinPurchased', 'true');
+        downloadBtn.disabled = false;
       }, delay + 800);
     }
 
@@ -604,6 +606,14 @@
         setTimeout(() => confetti.remove(), 1800);
       }
     }
+    document.getElementById('download-btn').addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.href = 'forTheRoad.pptx'; // שם הקובץ שהעלית לגיטהאב
+      link.download = 'צידה_לדרך.pptx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
   </script>
 </body>
 

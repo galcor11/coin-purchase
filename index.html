@@ -168,4 +168,424 @@
     .product-title {
       font-size: 22px;
       font-weight: 800;
-      color
+      color: #2C4A60;
+      margin-bottom: 8px;
+    }
+
+    .product-description {
+      font-size: 14px;
+      color: #4A453E;
+      margin-bottom: 24px;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .cost-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(244, 184, 58, 0.08);
+      padding: 8px 20px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(139, 105, 20, 0.3);
+      font-size: 24px;
+      font-weight: 800;
+      color: #B8860B;
+      margin-bottom: 28px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .cost-coin {
+      width: 24px;
+      height: 24px;
+      background-image: var(--coin-img);
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .cost-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .btn-buy {
+      width: 100%;
+      background: linear-gradient(135deg, #F4B83A 0%, #D59F23 100%);
+      color: #111827;
+      border: none;
+      border-radius: 14px;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(244, 184, 58, 0.2);
+    }
+
+    .btn-buy:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(244, 184, 58, 0.35);
+    }
+
+    /* עיצוב ייחודי לכפתור ההורדה במסך הסופי */
+    #download-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #4A7B9D 0%, #2C4A60 100%) !important; /* כחול מקצועי המבדל מהכפתור הקודם */
+      color: white !important;
+      border: none;
+      border-radius: 14px;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(44, 74, 96, 0.3) !important;
+      margin-top: 15px;
+      transition: all 0.3s;
+    }
+
+    #download-btn:hover {
+      box-shadow: 0 6px 20px rgba(44, 74, 96, 0.5) !important;
+      transform: translateY(-2px);
+    }
+
+    .btn-text {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(17, 24, 39, 0.2);
+      border-radius: 50%;
+      border-top-color: #111827;
+      animation: spin 1s infinite linear;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .processing .btn-buy {
+      cursor: not-allowed;
+      box-shadow: 0 4px 15px rgba(244, 184, 58, 0.2);
+    }
+
+    .processing .btn-text {
+      transform: scale(0);
+      opacity: 0;
+    }
+
+    .processing .btn-spinner {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .success-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: var(--card-bg);
+      background-image:
+        radial-gradient(ellipse at 30% 20%, rgba(244, 184, 58, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 90%, rgba(213, 188, 145, 0.22) 0%, transparent 60%),
+        var(--paper-url);
+      background-blend-mode: multiply;
+      background-size: cover;
+      border-radius: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.92);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 10;
+    }
+
+    .success-active .success-overlay {
+      opacity: 1;
+      pointer-events: all;
+      transform: scale(1);
+    }
+
+    .success-checkmark {
+      width: 80px;
+      height: 80px;
+      background: rgba(16, 185, 129, 0.08);
+      border: 3px solid #10B981;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      transform: scale(0);
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s;
+    }
+
+    .success-active .success-checkmark {
+      transform: scale(1);
+    }
+
+    .success-checkmark svg {
+      width: 34px;
+      height: 34px;
+      fill: none;
+      stroke: #10B981;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: drawCheck 0.8s forwards 0.35s ease-in-out;
+    }
+
+    .success-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #10B981;
+      margin-bottom: 8px;
+    }
+
+    .success-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      max-width: 280px;
+      line-height: 1.5;
+    }
+
+    .flying-coin {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-image: var(--coin-img);
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      z-index: 100;
+      filter: drop-shadow(0 4px 8px rgba(244, 184, 58, 0.45));
+    }
+
+    .confetti {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 0.4; }
+      50% { transform: scale(1.15); opacity: 0.7; }
+    }
+
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-glow-1"></div>
+
+  <div class="treasury-badge" id="treasuryBadge">
+    <div class="treasury-coin-icon"></div>
+    <span class="treasury-label">יתרת מטבעות:</span>
+    <span class="treasury-balance" id="treasuryBalance">120</span>
+  </div>
+
+  <div class="purchase-container" id="purchaseCard">
+    <div class="product-icon-wrapper" id="productIconWrapper">
+      <div class="product-glow"></div>
+      <div class="product-icon" id="productIcon">
+        <img src="./assets/pirate.png" alt="צידה לדרך" style="width: 85%; height: 85%; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));">
+      </div>
+    </div>
+
+    <h2 class="product-title">צידה לדרך</h2>
+    <p class="product-description">מימוש המטבעות שצברת לקבלת ערכת "צידה לדרך" לקראת סיום הקורס: למידה מבוססת משחק!</p>
+
+    <div>
+      <div class="cost-tag">
+        <div class="cost-coin"></div>
+        <span>120</span>
+        <span class="cost-label">מטבעות</span>
+      </div>
+    </div>
+
+    <button class="btn-buy" id="btnBuy" onclick="startRedeemAnimation()">
+      <span class="btn-spinner"></span>
+      <span class="btn-text">מימוש מטבעות לרכישה</span>
+    </button>
+
+    <div class="success-overlay" id="successOverlay">
+      <div class="success-checkmark">
+        <svg viewBox="0 0 52 52">
+          <polyline points="14 27 22 35 38 19" />
+        </svg>
+      </div>
+      <h3 class="success-title">הרכישה הושלמה!</h3>
+      <p class="success-subtitle" id="successDesc">הרכישה הושלמה בהצלחה! יתרת המטבעות המעודכנת שלך: 0 מטבעות.</p>
+
+      <button class="btn-buy" id="download-btn">צידה לדרך (הורדת PPT)</button>
+    </div>
+  </div>
+
+  <script>
+    let isPurchasing = false;
+    const startCoins = 120;
+    const endCoins = 0;
+    const costCoins = 120;
+
+    const balanceEl = document.getElementById('treasuryBalance');
+    const downloadBtn = document.getElementById('download-btn');
+    const card = document.getElementById('purchaseCard');
+
+    // בדיקה בטעינה: אם המשתמש כבר רכש, נציג לו ישר את מסך ההצלחה
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('coinPurchased') === 'true') {
+        balanceEl.innerText = endCoins;
+        card.classList.add('success-active');
+      }
+    });
+
+    function startRedeemAnimation() {
+      if (isPurchasing) return;
+      isPurchasing = true;
+
+      card.classList.add('processing');
+
+      const badgeEl = document.getElementById('treasuryBadge');
+      const iconWrapperEl = document.getElementById('productIconWrapper');
+
+      const badgeRect = badgeEl.getBoundingClientRect();
+      const iconRect = iconWrapperEl.getBoundingClientRect();
+
+      const startX = badgeRect.left + (badgeRect.width / 2);
+      const startY = badgeRect.top + (badgeRect.height / 2);
+
+      const endX = iconRect.left + (iconRect.width / 2);
+      const endY = iconRect.top + (iconRect.height / 2);
+
+      const totalCoinsToAnimate = 10;
+      let currentCoins = startCoins;
+      const step = (startCoins - endCoins) / totalCoinsToAnimate;
+
+      let delay = 0;
+
+      for (let i = 0; i < totalCoinsToAnimate; i++) {
+        setTimeout(() => {
+          createFlyingCoin(startX, startY, endX, endY);
+
+          currentCoins = Math.round(currentCoins - step);
+          if (i === totalCoinsToAnimate - 1) {
+            currentCoins = endCoins;
+          }
+
+          balanceEl.innerText = currentCoins;
+          balanceEl.classList.add('bump');
+          setTimeout(() => balanceEl.classList.remove('bump'), 100);
+
+        }, delay);
+
+        delay += 150;
+      }
+
+      setTimeout(() => {
+        card.classList.remove('processing');
+        card.classList.add('success-active');
+        triggerConfettiExplosion();
+        
+        localStorage.setItem('coinPurchased', 'true');
+      }, delay + 800);
+    }
+
+    function createFlyingCoin(sx, sy, ex, ey) {
+      const coin = document.createElement('div');
+      coin.className = 'flying-coin';
+      coin.style.left = sx + 'px';
+      coin.style.top = sy + 'px';
+      document.body.appendChild(coin);
+
+      const midX = (sx + ex) / 2 + (Math.random() * 30 - 15);
+      const midY = Math.min(sy, ey) - 80 - (Math.random() * 40);
+
+      coin.animate([
+        { transform: 'translate(-50%, -50%) scale(0.6) rotate(0deg)', opacity: 0 },
+        { transform: `translate(calc(-50% + ${midX - sx}px), calc(-50% + ${midY - sy}px)) scale(1.3) rotate(180deg)`, opacity: 1, offset: 0.4 },
+        { transform: `translate(calc(-50% + ${ex - sx}px), calc(-50% + ${ey - sy}px)) scale(0.7) rotate(360deg)`, opacity: 0.1, offset: 0.9 },
+        { transform: `translate(calc(-50% + ${ex - sx}px), calc(-50% + ${ey - sy}px)) scale(0) rotate(420deg)`, opacity: 0 }
+      ], {
+        duration: 850,
+        easing: 'cubic-bezier(0.25, 0.8, 0.25, 1)',
+        fill: 'forwards'
+      });
+
+      setTimeout(() => { coin.remove(); }, 950);
+    }
+
+    function triggerConfettiExplosion() {
+      const colors = ['#F4B83A', '#D59F23', '#10B981', '#3B82F6', '#EC4899', '#FFF'];
+      const container = document.getElementById('purchaseCard');
+
+      for (let i = 0; i < 40; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = '50%';
+        confetti.style.top = '50%';
+
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 50 + Math.random() * 130;
+        const xTarget = Math.cos(angle) * velocity;
+        const yTarget = Math.sin(angle) * velocity - (10 + Math.random() * 30);
+
+        const size = 5 + Math.random() * 6;
+        confetti.style.width = size + 'px';
+        confetti.style.height = size + 'px';
+
+        container.appendChild(confetti);
+
+        confetti.animate([
+          { transform: 'translate(-50%, -50%) scale(0) rotate(0deg)', opacity: 0 },
+          { transform: 'translate(-50%, -50%) scale(1.3) rotate(180deg)', opacity: 1, offset: 0.1 },
+          { transform: `translate(calc(-50% + ${xTarget}px), calc(-50% + ${yTarget}px)) scale(0.5) rotate(360deg)`, opacity: 0 }
+        ], {
+          duration: 1100 + Math.random() * 600,
+          easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)',
+          fill: 'forwards'
+        });
+
+        setTimeout(() => confetti.remove(), 1800);
+      }
+    }
+
+    // מנגנון הורדת הקובץ המדויק
+    downloadBtn.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.href = 'forTheRoad.pptx'; 
+      link.download = 'צידה_לדרך.pptx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  </script>
+</body>
+
+</html>
